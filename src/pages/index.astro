@@ -1,15 +1,116 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from '../components/Button.astro';
-import Link from '../components/Link.astro';
-import { Image } from 'astro:assets';
+import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
+import { Image } from "astro:assets";
 import thumbsup from "../assets/images/thumbsup.png";
 ---
-<MainLayout title="Titel">
-	<article>
-		<h1>Index overskrift</h1>
-		<Button>Klik!</Button>
-		<p>Link til <Link href="https://www.kea.dk" target="_blank">En anden side</Link></p>
-		<Image src={thumbsup} alt=""></Image>
-	</article>
+
+<MainLayout title="Folkekirken vs Rådhuset">
+  <!-- Hovednyhed -->
+
+  <div class="w-full flex justify-center">
+    <div class="w-full max-w-3xl px-4">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mt-4 text-left">
+        Folkekirken afholder færre og færre vielser
+      </h1>
+      <h2 class="text-xl sm:text-2xl mt-4 text-left py-1.5">
+        Flere hetroseksuelle par vælger en borgerlig vielse fremfor en kirkelig.
+        Det viser en ny undersøgelse fra Danmarks statistik.
+      </h2>
+      <img
+        src="ring.jpg"
+        alt="Nyhedsbillede"
+        class="w-full h-64 object-cover rounded-lg"
+      />
+    </div>
+  </div>
+
+  <!-- Brødtekst med infografikker -->
+  <div class="w-full flex justify-center">
+    <div class="w-full max-w-3xl px-4">
+      <h2 class="text-2xl font-semibold mb-4">
+        Hvor stor er forskellen egentlig?
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Ifølge Danmarks Statistik er der sket en markant ændring i hvor folk
+        vælger at blive viet. I 2007 blev 44% af dem der blev gift, viet i
+        Folkekirken, hvor i 2022 kun 34% vælger Folkekirken. Ligeledes havde
+        rådhuset tilbage i 2007 56% af vielserne og i 2022 er de oppe på 66%.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="text-center">
+          <img
+            id="kirke-svg"
+            src="kirke.svg"
+            alt="Infografik 1"
+            class="w-48 h-48 rounded-lg mx-auto block"
+          />
+          <p class="text-gray-600 mt-2">fra 44% i 2007 til 34% i 2022.</p>
+        </div>
+        <div class="text-center">
+          <img
+            id="rhus-svg"
+            src="rhus.svg"
+            alt="Infografik 2"
+            class="w-48 h-48 rounded-lg mx-auto block"
+          />
+          <p class="text-gray-600 mt-2">fra 56% i 2007 til 66% i 2022.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Små nyheder -->
+  <div class="w-full flex justify-center">
+    <div class="w-full max-w-3xl px-4">
+      <div class="flex flex-col space-y-4">
+        <div class="bg-white shadow-md p-4 rounded-lg">
+          <h2 class="text-xl font-semibold">Lorem Nyhed 1</h2>
+          <p class="text-gray-600">
+            Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+          </p>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg">
+          <h2 class="text-xl font-semibold">Lorem Nyhed 2</h2>
+          <p class="text-gray-600">
+            Nulla porttitor accumsan tincidunt. Curabitur arcu erat, accumsan id
+            imperdiet et.
+          </p>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg">
+          <h2 class="text-xl font-semibold">Lorem Nyhed 3</h2>
+          <p class="text-gray-600">
+            Vivamus magna justo, lacinia eget consectetur sed, convallis at
+            tellus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const kirkeSvg = document.querySelector("#kirke-svg");
+      const rhusSvg = document.querySelector("#rhus-svg");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (entry.target.id === "kirke-svg") {
+                entry.target.classList.add("scale-down-center");
+              } else if (entry.target.id === "rhus-svg") {
+                entry.target.classList.add("scale-up-center");
+              }
+            }
+          });
+        },
+        { threshold: 1 } // Animation starter, når 50% er synlig
+      );
+
+      if (kirkeSvg) observer.observe(kirkeSvg);
+      if (rhusSvg) observer.observe(rhusSvg);
+    });
+  </script>
 </MainLayout>
